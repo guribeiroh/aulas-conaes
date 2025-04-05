@@ -52,38 +52,41 @@ const formatDate = (dateStr: string) => {
 const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes, seconds, days = 0 }) => {
   // Detectar dispositivo móvel
   const [isMobile, setIsMobile] = useState(false);
+  const [isSmallMobile, setIsSmallMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640);
+    const checkMobileSize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width < 640);
+      setIsSmallMobile(width < 380);
     };
     
     // Verificar inicialmente
-    checkMobile();
+    checkMobileSize();
     
     // Adicionar listener para quando a janela for redimensionada
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener('resize', checkMobileSize);
     
     // Limpar o listener quando o componente for desmontado
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobileSize);
   }, []);
 
   const timerItemStyle: CSSProperties = {
     background: 'rgba(24, 61, 93, 0.85)',
     borderRadius: '8px',
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 -1px 0 rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(0, 0, 0, 0.3)',
-    width: isMobile ? '60px' : '70px',
-    height: isMobile ? '60px' : '70px',
+    width: isSmallMobile ? '50px' : isMobile ? '60px' : '70px',
+    height: isSmallMobile ? '50px' : isMobile ? '60px' : '70px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: '0 4px',
+    margin: isSmallMobile ? '0 2px' : '0 4px',
     position: 'relative',
     overflow: 'hidden'
   };
 
   const timerDigitStyle: CSSProperties = {
-    fontSize: isMobile ? '2rem' : '2.5rem',
+    fontSize: isSmallMobile ? '1.5rem' : isMobile ? '2rem' : '2.5rem',
     fontWeight: 700,
     color: '#3b82f6',
     textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
@@ -93,8 +96,8 @@ const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes,
 
   const timerLabelStyle: CSSProperties = {
     color: 'rgba(156, 163, 175, 0.8)',
-    fontSize: '0.75rem',
-    marginTop: '6px',
+    fontSize: isSmallMobile ? '0.65rem' : '0.75rem',
+    marginTop: isSmallMobile ? '4px' : '6px',
     textAlign: 'center',
     textTransform: 'uppercase'
   };
@@ -107,7 +110,7 @@ const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes,
 
   const containerStyle: CSSProperties = {
     background: 'rgba(15, 23, 42, 0.95)',
-    padding: isMobile ? '16px' : '24px',
+    padding: isSmallMobile ? '12px' : isMobile ? '16px' : '24px',
     borderRadius: '12px',
     boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)',
     display: 'flex',
@@ -120,8 +123,8 @@ const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes,
 
   const titleStyle: CSSProperties = {
     color: '#60a5fa',
-    marginBottom: '16px',
-    fontSize: isMobile ? '1.1rem' : '1.25rem',
+    marginBottom: isSmallMobile ? '12px' : '16px',
+    fontSize: isSmallMobile ? '1rem' : isMobile ? '1.1rem' : '1.25rem',
     fontWeight: 600,
     textAlign: 'center'
   };
@@ -131,8 +134,8 @@ const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes,
     bottom: '-30px',
     left: '50%',
     transform: 'translateX(-50%)',
-    width: '80px',
-    height: '50px',
+    width: isSmallMobile ? '60px' : '80px',
+    height: isSmallMobile ? '40px' : '50px',
     background: 'radial-gradient(ellipse at center, rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0) 70%)',
     borderRadius: '50%',
     pointerEvents: 'none'
@@ -143,10 +146,21 @@ const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes,
       <div style={titleStyle}>
         A aula iniciará em breve
       </div>
-      <div style={{ fontSize: '0.9rem', color: '#a5b4fc', marginBottom: '20px', textAlign: 'center' }}>
+      <div style={{ 
+        fontSize: isSmallMobile ? '0.8rem' : '0.9rem', 
+        color: '#a5b4fc', 
+        marginBottom: isSmallMobile ? '16px' : '20px', 
+        textAlign: 'center',
+        padding: isSmallMobile ? '0 8px' : '0'
+      }}>
         Aguarde o início da aula conforme o cronômetro abaixo.
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? '8px' : '16px', flexWrap: 'wrap' }}>
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        gap: isSmallMobile ? '4px' : isMobile ? '8px' : '16px', 
+        flexWrap: 'wrap'
+      }}>
         {days > 0 && (
           <div style={timerSectionStyle}>
             <div style={timerItemStyle}>
