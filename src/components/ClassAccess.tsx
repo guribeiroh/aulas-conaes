@@ -367,9 +367,12 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
           
           {/* Cabeçalho otimizado para mobile */}
           <div className="p-4 sm:p-6 md:p-8 border-b border-gray-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: theme.colors.text.primary }}>
+            <div className="flex flex-col">
+              <h2 className="text-lg sm:text-xl font-medium mb-1" style={{ color: theme.colors.text.secondary }}>
                 {meeting.title}
+              </h2>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: theme.colors.primary.DEFAULT }}>
+                {meeting.theme}
               </h1>
             </div>
             
@@ -503,13 +506,6 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
                 </div>
                 
                 <div className="space-y-4">
-                  <div>
-                    <h3 style={{ color: theme.colors.text.muted, fontSize: '0.875rem' }}>Tema</h3>
-                    <p className="text-base sm:text-lg font-medium break-words" style={{ color: theme.colors.text.primary }}>
-                      {meeting.theme}
-                    </p>
-                  </div>
-                  
                   <div className="pt-2">
                     <div className="flex items-center space-x-2 mb-2">
                       <Calendar size={16} style={{ color: theme.colors.text.accent }} />
