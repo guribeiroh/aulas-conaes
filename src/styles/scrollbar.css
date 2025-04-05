@@ -1,0 +1,81 @@
+/* Estilos personalizados para barras de rolagem em toda a aplicação */
+
+/* Barra de rolagem para navegadores webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(17, 24, 39, 0.6); /* Cor de fundo baseada no background.dark */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(16, 185, 129, 0.5); /* Cor primária com opacidade */
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(16, 185, 129, 0.8); /* Cor primária com maior opacidade ao hover */
+}
+
+/* Cantos da barra de rolagem */
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+/* Estilos para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 185, 129, 0.5) rgba(17, 24, 39, 0.6);
+}
+
+/* Estilos específicos para áreas de texto e elementos com rolagem interna */
+textarea, 
+.overflow-y-auto, 
+.overflow-x-auto, 
+.overflow-auto {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 185, 129, 0.5) rgba(17, 24, 39, 0.6);
+}
+
+/* Melhorias para interações de toque (mobile) */
+@media (hover: none) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(16, 185, 129, 0.7); /* Mais visível em dispositivos de toque */
+  }
+}
+
+/* Estilo para barras de rolagem em modais */
+.modal-content::-webkit-scrollbar,
+[role="dialog"] .overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-thumb,
+[role="dialog"] .overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: rgba(16, 185, 129, 0.6);
+  border-radius: 6px;
+}
+
+/* Efeito de animação suave para a barra de rolagem */
+@keyframes fadeIn {
+  from { opacity: 0.2; }
+  to { opacity: 1; }
+}
+
+::-webkit-scrollbar-thumb {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Melhoria para rolagem horizontal */
+::-webkit-scrollbar-thumb:horizontal {
+  min-width: 30px;
+} 

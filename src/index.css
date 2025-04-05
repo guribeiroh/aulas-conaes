@@ -1,0 +1,31 @@
+/* Importar os estilos da barra de rolagem */
+@import './styles/scrollbar.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Garantir que o body e html tenham a altura completa e comportamento de rolagem adequado */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Garantir que o conteúdo principal da aplicação tenha rolagem adequada */
+body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Melhor rolagem inercial em dispositivos Apple */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Garantir que os elementos com rolagem interna tenham comportamento suave */
+.overflow-y-auto,
+.overflow-x-auto,
+.overflow-auto {
+  -webkit-overflow-scrolling: touch;
+}
