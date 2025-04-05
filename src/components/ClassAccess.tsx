@@ -416,76 +416,6 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
               </div>
             )}
             
-            {/* Informações da aula - layout melhorado para mobile */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
-              <div className="rounded-xl p-4 sm:p-6" style={{ backgroundColor: theme.colors.background.light }}>
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-8 h-8 flex items-center justify-center rounded-full" 
-                       style={{ backgroundColor: `${theme.colors.primary.DEFAULT}30` }}>
-                    <BookOpen size={18} style={{ color: theme.colors.primary.DEFAULT }} />
-                  </div>
-                  <h2 className="text-lg sm:text-xl font-semibold" style={{ color: theme.colors.text.primary }}>
-                    Detalhes da Aula
-                  </h2>
-                </div>
-                
-                <div className="space-y-4">
-                  <div>
-                    <h3 style={{ color: theme.colors.text.muted, fontSize: '0.875rem' }}>Tema</h3>
-                    <p className="text-base sm:text-lg font-medium break-words" style={{ color: theme.colors.text.primary }}>
-                      {meeting.theme}
-                    </p>
-                  </div>
-                  
-                  <div className="pt-2">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <Calendar size={16} style={{ color: theme.colors.text.accent }} />
-                      <span className="text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
-                        {formattedDate} às {meeting.time}
-                      </span>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <Clock size={16} style={{ color: theme.colors.text.accent }} />
-                      <span className="text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
-                        Duração: {meeting.duration} minutos
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="rounded-xl p-4 sm:p-6" style={{ backgroundColor: theme.colors.background.light }}>
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-8 h-8 flex items-center justify-center rounded-full" 
-                       style={{ backgroundColor: `${theme.colors.primary.DEFAULT}30` }}>
-                    <Users size={18} style={{ color: theme.colors.primary.DEFAULT }} />
-                  </div>
-                  <h2 className="text-lg sm:text-xl font-semibold" style={{ color: theme.colors.text.primary }}>
-                    Informações Adicionais
-                  </h2>
-                </div>
-                
-                <div className="space-y-4">
-                  <div>
-                    <h3 style={{ color: theme.colors.text.muted, fontSize: '0.875rem' }}>Professor</h3>
-                    <p className="text-base sm:text-lg font-medium break-words" style={{ color: theme.colors.text.primary }}>
-                      {meeting.professor}
-                    </p>
-                  </div>
-                  
-                  <div className="pt-2">
-                    <div className="flex items-center space-x-2">
-                      <Users size={16} style={{ color: theme.colors.text.accent }} />
-                      <span className="text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
-                        {meeting.authorizedEmails.length} alunos autorizados
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
             {/* Verificação de email (se ainda não verificado) */}
             {!isVerified && !classEnded && (
               <div className="rounded-xl p-4 sm:p-6 mb-4 sm:mb-6" style={{ backgroundColor: theme.colors.background.light }}>
@@ -558,6 +488,76 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
                 </form>
               </div>
             )}
+            
+            {/* Informações da aula - layout melhorado para mobile */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              <div className="rounded-xl p-4 sm:p-6" style={{ backgroundColor: theme.colors.background.light }}>
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-8 h-8 flex items-center justify-center rounded-full" 
+                       style={{ backgroundColor: `${theme.colors.primary.DEFAULT}30` }}>
+                    <BookOpen size={18} style={{ color: theme.colors.primary.DEFAULT }} />
+                  </div>
+                  <h2 className="text-lg sm:text-xl font-semibold" style={{ color: theme.colors.text.primary }}>
+                    Detalhes da Aula
+                  </h2>
+                </div>
+                
+                <div className="space-y-4">
+                  <div>
+                    <h3 style={{ color: theme.colors.text.muted, fontSize: '0.875rem' }}>Tema</h3>
+                    <p className="text-base sm:text-lg font-medium break-words" style={{ color: theme.colors.text.primary }}>
+                      {meeting.theme}
+                    </p>
+                  </div>
+                  
+                  <div className="pt-2">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Calendar size={16} style={{ color: theme.colors.text.accent }} />
+                      <span className="text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
+                        {formattedDate} às {meeting.time}
+                      </span>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Clock size={16} style={{ color: theme.colors.text.accent }} />
+                      <span className="text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
+                        Duração: {meeting.duration} minutos
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="rounded-xl p-4 sm:p-6" style={{ backgroundColor: theme.colors.background.light }}>
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-8 h-8 flex items-center justify-center rounded-full" 
+                       style={{ backgroundColor: `${theme.colors.primary.DEFAULT}30` }}>
+                    <Users size={18} style={{ color: theme.colors.primary.DEFAULT }} />
+                  </div>
+                  <h2 className="text-lg sm:text-xl font-semibold" style={{ color: theme.colors.text.primary }}>
+                    Informações Adicionais
+                  </h2>
+                </div>
+                
+                <div className="space-y-4">
+                  <div>
+                    <h3 style={{ color: theme.colors.text.muted, fontSize: '0.875rem' }}>Professor</h3>
+                    <p className="text-base sm:text-lg font-medium break-words" style={{ color: theme.colors.text.primary }}>
+                      {meeting.professor}
+                    </p>
+                  </div>
+                  
+                  <div className="pt-2">
+                    <div className="flex items-center space-x-2">
+                      <Users size={16} style={{ color: theme.colors.text.accent }} />
+                      <span className="text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
+                        {meeting.authorizedEmails.length} pessoas inscritas
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             
             {/* Botão de entrada - só exibido se a aula não tiver encerrado E o email estiver verificado */}
             {!classEnded && isVerified && (
