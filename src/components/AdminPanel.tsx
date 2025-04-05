@@ -645,24 +645,24 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
               {/* Conteúdo do formulário com scroll */}
               <div className="flex-grow overflow-y-auto p-4 md:p-6">
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
+                <div>
                     <label className="block text-sm font-medium mb-1.5" style={{ color: theme.colors.text.muted }}>
-                      Título da Aula
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.title}
-                      onChange={(e) => setFormData({...formData, title: e.target.value})}
+                    Título da Aula
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.title}
+                    onChange={(e) => setFormData({...formData, title: e.target.value})}
                       className="w-full rounded-lg border px-4 py-2.5 transition-all text-base"
                       style={{ 
                         backgroundColor: theme.colors.background.input,
                         borderColor: `${theme.colors.text.muted}50`,
                         color: theme.colors.text.primary
                       }}
-                      required
-                    />
-                  </div>
-
+                    required
+                  />
+                </div>
+                
                   <div>
                     <label className="block text-sm font-medium mb-1.5" style={{ color: theme.colors.text.muted }}>
                       Professor
@@ -749,34 +749,34 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                           borderColor: `${theme.colors.text.muted}50`,
                           color: theme.colors.text.primary
                         }}
-                        required
-                      />
-                    </div>
+                      required
+                    />
                   </div>
+                </div>
 
-                  <div>
+                <div>
                     <label className="block text-sm font-medium mb-1.5" style={{ color: theme.colors.text.muted }}>
-                      Link do Zoom
-                    </label>
-                    <input
-                      type="url"
-                      value={formData.zoomLink}
-                      onChange={(e) => setFormData({...formData, zoomLink: e.target.value})}
+                    Link do Zoom
+                  </label>
+                  <input
+                    type="url"
+                    value={formData.zoomLink}
+                    onChange={(e) => setFormData({...formData, zoomLink: e.target.value})}
                       className="w-full rounded-lg border px-4 py-2.5 transition-all text-base"
                       style={{ 
                         backgroundColor: theme.colors.background.input,
                         borderColor: `${theme.colors.text.muted}50`,
                         color: theme.colors.text.primary
                       }}
-                      required
-                    />
-                  </div>
+                    required
+                  />
+                </div>
 
-                  <div>
+                <div>
                     <div className="flex flex-wrap justify-between items-center gap-2 mb-1.5">
                       <label className="block text-sm font-medium" style={{ color: theme.colors.text.muted }}>
                         Emails Autorizados
-                      </label>
+                  </label>
                       <div className="flex items-center gap-2">
                         <input
                           type="file"
@@ -811,16 +811,16 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                         </button>
                       </div>
                     </div>
-                    <textarea
-                      value={formData.authorizedEmails}
-                      onChange={(e) => setFormData({...formData, authorizedEmails: e.target.value})}
+                  <textarea
+                    value={formData.authorizedEmails}
+                    onChange={(e) => setFormData({...formData, authorizedEmails: e.target.value})}
                       className="w-full rounded-lg border px-4 py-2.5 transition-all text-base h-24 sm:h-32 resize-none"
                       style={{ 
                         backgroundColor: theme.colors.background.input,
                         borderColor: `${theme.colors.text.muted}50`,
                         color: theme.colors.text.primary
                       }}
-                      required
+                    required
                       placeholder="Digite um email por linha ou importe um arquivo CSV"
                     />
                     <p className="mt-1 text-xs" style={{ color: theme.colors.text.muted }}>
@@ -835,8 +835,8 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                     </div>
                   )}
                 </form>
-              </div>
-              
+                </div>
+
               {/* Rodapé fixo com botões de ação */}
               <div className="sticky bottom-0 border-t p-4 md:p-6 flex flex-col sm:flex-row justify-end items-center gap-3"
                    style={{ 
@@ -844,8 +844,8 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                      backgroundColor: theme.colors.background.DEFAULT,
                      boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.1)'
                    }}>
-                <button
-                  type="button"
+                  <button
+                    type="button"
                   onClick={handleCloseForm}
                   className="w-full sm:w-auto px-4 py-2.5 rounded-lg font-medium transition-all"
                   style={{
@@ -859,10 +859,10 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                     e.currentTarget.style.backgroundColor = `${theme.colors.text.muted}20`;
                   }}
                   disabled={isSubmitting}
-                >
-                  Cancelar
-                </button>
-                <button
+                  >
+                    Cancelar
+                  </button>
+                  <button
                   type="button"
                   onClick={(e) => {
                     // Encontrar o formulário e disparar o evento submit
@@ -890,8 +890,8 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                       <span>{editingMeetingId ? 'Atualizar' : 'Salvar'}</span>
                     </>
                   )}
-                </button>
-              </div>
+                  </button>
+                </div>
             </div>
           </div>
         )}
@@ -941,7 +941,7 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
             </button>
           </div>
         ) : (
-          <div className="grid gap-6">
+        <div className="grid gap-6">
             {filteredMeetings.map((meeting) => {
               const status = getMeetingStatus(meeting);
               let statusColor;
@@ -965,8 +965,8 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                   <div className="p-6">
                     <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
                       <div className="space-y-3 w-full">
-                        <div className="flex justify-between items-start">
-                          <div>
+              <div className="flex justify-between items-start">
+                <div>
                             <div className="flex items-center gap-2">
                               <h3 className="text-xl font-semibold" style={{ color: theme.colors.text.primary }}>
                                 {meeting.title}
@@ -1013,7 +1013,7 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                         </div>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div className="space-y-2">
+                  <div className="space-y-2">
                             <div className="flex items-center" style={{ color: theme.colors.text.secondary }}>
                               <Users size={16} className="mr-2" style={{ color: theme.colors.text.accent }} />
                               <span>Professor: {meeting.professor}</span>
@@ -1026,8 +1026,8 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                               </div>
                               <div className="flex items-center">
                                 <Clock size={16} className="mr-1.5" style={{ color: theme.colors.text.accent }} />
-                                <span>{meeting.time}</span>
-                              </div>
+                      <span>{meeting.time}</span>
+                    </div>
                               <div className="flex items-center">
                                 <span>({meeting.duration} min)</span>
                               </div>
@@ -1039,13 +1039,13 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                                 {meeting.zoomLink}
                               </span>
                             </div>
-                          </div>
+                    </div>
 
                           <div className="space-y-2">
                             <div className="flex items-center" style={{ color: theme.colors.text.secondary }}>
                               <Users size={16} className="mr-2" style={{ color: theme.colors.text.accent }} />
-                              <span>{meeting.authorizedEmails.length} participantes</span>
-                            </div>
+                      <span>{meeting.authorizedEmails.length} participantes</span>
+                    </div>
                             
                             <div className="flex flex-wrap items-center gap-2">
                               <div className="flex items-center relative">
@@ -1056,8 +1056,8 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                                     {meeting.accessCode}
                                   </span>
                                 </div>
-                                <button
-                                  onClick={() => copyAccessLink(meeting.accessCode)}
+                      <button
+                        onClick={() => copyAccessLink(meeting.accessCode)}
                                   className="py-1.5 px-3 rounded-r flex items-center transition-all"
                                   style={{ 
                                     backgroundColor: `${theme.colors.primary.DEFAULT}40`,
@@ -1069,11 +1069,11 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                                   onMouseLeave={e => {
                                     e.currentTarget.style.backgroundColor = `${theme.colors.primary.DEFAULT}40`;
                                   }}
-                                  title="Copiar link de acesso"
-                                >
+                        title="Copiar link de acesso"
+                      >
                                   <Copy size={14} className="mr-1" />
                                   <span className="text-sm whitespace-nowrap">Copiar Link</span>
-                                </button>
+                      </button>
                                 <div 
                                   className="copy-feedback absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white text-xs py-1 px-2 rounded shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none"
                                   style={{ boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)' }}
@@ -1090,7 +1090,7 @@ const AdminPanel = ({ meetings, updateMeetings }: AdminPanelProps) => {
                 </div>
               );
             })}
-          </div>
+              </div>
         )}
       </div>
     </div>
