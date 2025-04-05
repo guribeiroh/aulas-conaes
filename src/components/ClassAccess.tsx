@@ -110,7 +110,7 @@ const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes,
 
   const containerStyle: CSSProperties = {
     background: 'rgba(15, 23, 42, 0.95)',
-    padding: isSmallMobile ? '12px' : isMobile ? '16px' : '24px',
+    padding: isSmallMobile ? '12px 8px' : isMobile ? '16px' : '24px',
     borderRadius: '12px',
     boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)',
     display: 'flex',
@@ -141,8 +141,33 @@ const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes,
     pointerEvents: 'none'
   };
 
+  // Ajuste para manter tamanhos consistentes entre os itens
+  const timerItemSize = isSmallMobile ? 50 : isMobile ? 60 : 70;
+  const gapSize = isSmallMobile ? 6 : isMobile ? 10 : 16;
+  
+  // Wrapper para cronômetro em linha única
+  const timerWrapperStyle: CSSProperties = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    overflowX: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    scrollbarWidth: 'none',
+    padding: '4px 0',
+    msOverflowStyle: 'none' // IE/Edge
+  };
+  
+  // Para esconder a barra de rolagem em navegadores específicos
+  const hideScrollbarStyle = `
+    .timer-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+  `;
+
   return (
     <div style={containerStyle}>
+      <style>{hideScrollbarStyle}</style>
       <div style={titleStyle}>
         A aula iniciará em breve
       </div>
@@ -155,41 +180,46 @@ const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes,
       }}>
         Aguarde o início da aula conforme o cronômetro abaixo.
       </div>
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        gap: isSmallMobile ? '4px' : isMobile ? '8px' : '16px', 
-        flexWrap: 'wrap'
-      }}>
-        {days > 0 && (
+      
+      <div className="timer-wrapper" style={timerWrapperStyle}>
+        <div style={{ 
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: `${gapSize}px`,
+          flexWrap: 'nowrap',
+          padding: '4px 0'
+        }}>
+          {days > 0 && (
+            <div style={timerSectionStyle}>
+              <div style={{...timerItemStyle, width: `${timerItemSize}px`, height: `${timerItemSize}px`}}>
+                <div style={timerDigitStyle}>{days}</div>
+                <div style={glowEffect}></div>
+              </div>
+              <div style={timerLabelStyle}>dias</div>
+            </div>
+          )}
           <div style={timerSectionStyle}>
-            <div style={timerItemStyle}>
-              <div style={timerDigitStyle}>{days}</div>
+            <div style={{...timerItemStyle, width: `${timerItemSize}px`, height: `${timerItemSize}px`}}>
+              <div style={timerDigitStyle}>{hours.toString().padStart(2, '0')}</div>
               <div style={glowEffect}></div>
             </div>
-            <div style={timerLabelStyle}>dias</div>
+            <div style={timerLabelStyle}>horas</div>
           </div>
-        )}
-        <div style={timerSectionStyle}>
-          <div style={timerItemStyle}>
-            <div style={timerDigitStyle}>{hours.toString().padStart(2, '0')}</div>
-            <div style={glowEffect}></div>
+          <div style={timerSectionStyle}>
+            <div style={{...timerItemStyle, width: `${timerItemSize}px`, height: `${timerItemSize}px`}}>
+              <div style={timerDigitStyle}>{minutes.toString().padStart(2, '0')}</div>
+              <div style={glowEffect}></div>
+            </div>
+            <div style={timerLabelStyle}>min</div>
           </div>
-          <div style={timerLabelStyle}>horas</div>
-        </div>
-        <div style={timerSectionStyle}>
-          <div style={timerItemStyle}>
-            <div style={timerDigitStyle}>{minutes.toString().padStart(2, '0')}</div>
-            <div style={glowEffect}></div>
+          <div style={timerSectionStyle}>
+            <div style={{...timerItemStyle, width: `${timerItemSize}px`, height: `${timerItemSize}px`}}>
+              <div style={timerDigitStyle}>{seconds.toString().padStart(2, '0')}</div>
+              <div style={glowEffect}></div>
+            </div>
+            <div style={timerLabelStyle}>seg</div>
           </div>
-          <div style={timerLabelStyle}>min</div>
-        </div>
-        <div style={timerSectionStyle}>
-          <div style={timerItemStyle}>
-            <div style={timerDigitStyle}>{seconds.toString().padStart(2, '0')}</div>
-            <div style={glowEffect}></div>
-          </div>
-          <div style={timerLabelStyle}>seg</div>
         </div>
       </div>
     </div>
