@@ -48,24 +48,42 @@ const formatDate = (dateStr: string) => {
   return `${day} de ${month} de ${year}`;
 };
 
-// Componente de cronômetro moderno
+// Componente de cronômetro moderno com suporte melhorado para mobile
 const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes, seconds, days = 0 }) => {
+  // Detectar dispositivo móvel
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    
+    // Verificar inicialmente
+    checkMobile();
+    
+    // Adicionar listener para quando a janela for redimensionada
+    window.addEventListener('resize', checkMobile);
+    
+    // Limpar o listener quando o componente for desmontado
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const timerItemStyle: CSSProperties = {
     background: 'rgba(24, 61, 93, 0.85)',
     borderRadius: '8px',
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 -1px 0 rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(0, 0, 0, 0.3)',
-    width: '70px',
-    height: '70px',
+    width: isMobile ? '60px' : '70px',
+    height: isMobile ? '60px' : '70px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: '0 8px',
+    margin: '0 4px',
     position: 'relative',
     overflow: 'hidden'
   };
 
   const timerDigitStyle: CSSProperties = {
-    fontSize: '2.5rem',
+    fontSize: isMobile ? '2rem' : '2.5rem',
     fontWeight: 700,
     color: '#3b82f6',
     textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
@@ -89,7 +107,7 @@ const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes,
 
   const containerStyle: CSSProperties = {
     background: 'rgba(15, 23, 42, 0.95)',
-    padding: '24px',
+    padding: isMobile ? '16px' : '24px',
     borderRadius: '12px',
     boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)',
     display: 'flex',
@@ -103,8 +121,9 @@ const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes,
   const titleStyle: CSSProperties = {
     color: '#60a5fa',
     marginBottom: '16px',
-    fontSize: '1.25rem',
-    fontWeight: 600
+    fontSize: isMobile ? '1.1rem' : '1.25rem',
+    fontWeight: 600,
+    textAlign: 'center'
   };
 
   const glowEffect: CSSProperties = {
@@ -124,10 +143,10 @@ const ModernTimerDisplay: React.FC<ModernTimerDisplayProps> = ({ hours, minutes,
       <div style={titleStyle}>
         A aula iniciará em breve
       </div>
-      <div style={{ fontSize: '0.9rem', color: '#a5b4fc', marginBottom: '20px' }}>
+      <div style={{ fontSize: '0.9rem', color: '#a5b4fc', marginBottom: '20px', textAlign: 'center' }}>
         Aguarde o início da aula conforme o cronômetro abaixo.
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? '8px' : '16px', flexWrap: 'wrap' }}>
         {days > 0 && (
           <div style={timerSectionStyle}>
             <div style={timerItemStyle}>
@@ -265,12 +284,12 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
     }
   };
 
-  // Aula não encontrada - tela moderna
+  // Aula não encontrada - tela moderna (responsiva)
   if (!meeting) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6" 
+      <div className="min-h-screen flex items-center justify-center p-4 sm:p-6" 
            style={{ backgroundColor: theme.colors.background.dark }}>
-        <div className="max-w-md w-full bg-opacity-90 backdrop-blur-sm p-8 rounded-xl shadow-lg"
+        <div className="max-w-md w-full bg-opacity-90 backdrop-blur-sm p-6 sm:p-8 rounded-xl shadow-lg"
              style={{ backgroundColor: theme.colors.background.DEFAULT }}>
           <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 rounded-full" 
                style={{ backgroundColor: `${theme.colors.state.error}20` }}>
@@ -283,7 +302,7 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
             </div>
           </div>
           
-          <h2 className="text-2xl font-semibold text-center mb-4" 
+          <h2 className="text-xl sm:text-2xl font-semibold text-center mb-4" 
               style={{ color: theme.colors.state.error }}>
             Aula não encontrada
           </h2>
@@ -339,22 +358,22 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
     statusText = "Aguarde o início da aula conforme o cronômetro abaixo.";
   }
 
-  // Tela da aula modernizada
+  // Tela da aula modernizada e otimizada para mobile
   return (
-    <div className="min-h-screen p-6 md:p-8" style={{ backgroundColor: theme.colors.background.dark, color: theme.colors.text.primary }}>
+    <div className="min-h-screen p-4 sm:p-6 md:p-8" style={{ backgroundColor: theme.colors.background.dark, color: theme.colors.text.primary }}>
       <div className="max-w-5xl mx-auto">
         <div className="rounded-xl shadow-xl overflow-hidden backdrop-blur-sm"
              style={{ backgroundColor: theme.colors.background.DEFAULT }}>
           
-          {/* Cabeçalho */}
-          <div className="p-6 md:p-8 border-b border-gray-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          {/* Cabeçalho otimizado para mobile */}
+          <div className="p-4 sm:p-6 md:p-8 border-b border-gray-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold" style={{ color: theme.colors.text.primary }}>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: theme.colors.text.primary }}>
                 {meeting.title}
               </h1>
             </div>
             
-            <div className="flex items-center gap-3 py-2 px-4 rounded-full" 
+            <div className="flex items-center gap-3 py-2 px-4 rounded-full self-start" 
                  style={{ backgroundColor: `${statusColor}20` }}>
               <span style={{ color: statusColor }}>
                 {classEnded ? <AlertTriangle size={18} /> : classStarted ? <Video size={18} /> : <Clock size={18} />}
@@ -366,7 +385,7 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
           </div>
           
           {/* Status da aula */}
-          <div className="p-6 md:p-8">
+          <div className="p-4 sm:p-6 md:p-8">
             {!classStarted && !classEnded && timeRemaining && (
               <ModernTimerDisplay 
                 hours={timerDigits.hours} 
@@ -378,7 +397,7 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
             
             {/* Card de status - apenas para aula em andamento ou encerrada */}
             {(classStarted || classEnded) && (
-              <div className="rounded-xl p-6 mb-8 shadow-inner" 
+              <div className="rounded-xl p-4 sm:p-6 mb-6 sm:mb-8 shadow-inner" 
                   style={{ backgroundColor: `${statusColor}15` }}>
                 <div className="flex flex-col md:flex-row items-center gap-4">
                   <div className="w-16 h-16 flex items-center justify-center rounded-full"
@@ -397,15 +416,15 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
               </div>
             )}
             
-            {/* Informações da aula */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="rounded-xl p-6" style={{ backgroundColor: theme.colors.background.light }}>
+            {/* Informações da aula - layout melhorado para mobile */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              <div className="rounded-xl p-4 sm:p-6" style={{ backgroundColor: theme.colors.background.light }}>
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-8 h-8 flex items-center justify-center rounded-full" 
                        style={{ backgroundColor: `${theme.colors.primary.DEFAULT}30` }}>
                     <BookOpen size={18} style={{ color: theme.colors.primary.DEFAULT }} />
                   </div>
-                  <h2 className="text-xl font-semibold" style={{ color: theme.colors.text.primary }}>
+                  <h2 className="text-lg sm:text-xl font-semibold" style={{ color: theme.colors.text.primary }}>
                     Detalhes da Aula
                   </h2>
                 </div>
@@ -413,7 +432,7 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
                 <div className="space-y-4">
                   <div>
                     <h3 style={{ color: theme.colors.text.muted, fontSize: '0.875rem' }}>Tema</h3>
-                    <p className="text-lg font-medium" style={{ color: theme.colors.text.primary }}>
+                    <p className="text-base sm:text-lg font-medium break-words" style={{ color: theme.colors.text.primary }}>
                       {meeting.theme}
                     </p>
                   </div>
@@ -421,14 +440,14 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
                   <div className="pt-2">
                     <div className="flex items-center space-x-2 mb-2">
                       <Calendar size={16} style={{ color: theme.colors.text.accent }} />
-                      <span style={{ color: theme.colors.text.secondary }}>
+                      <span className="text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
                         {formattedDate} às {meeting.time}
                       </span>
                     </div>
                     
                     <div className="flex items-center space-x-2">
                       <Clock size={16} style={{ color: theme.colors.text.accent }} />
-                      <span style={{ color: theme.colors.text.secondary }}>
+                      <span className="text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
                         Duração: {meeting.duration} minutos
                       </span>
                     </div>
@@ -436,13 +455,13 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
                 </div>
               </div>
               
-              <div className="rounded-xl p-6" style={{ backgroundColor: theme.colors.background.light }}>
+              <div className="rounded-xl p-4 sm:p-6" style={{ backgroundColor: theme.colors.background.light }}>
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-8 h-8 flex items-center justify-center rounded-full" 
                        style={{ backgroundColor: `${theme.colors.primary.DEFAULT}30` }}>
                     <Users size={18} style={{ color: theme.colors.primary.DEFAULT }} />
                   </div>
-                  <h2 className="text-xl font-semibold" style={{ color: theme.colors.text.primary }}>
+                  <h2 className="text-lg sm:text-xl font-semibold" style={{ color: theme.colors.text.primary }}>
                     Informações Adicionais
                   </h2>
                 </div>
@@ -450,7 +469,7 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
                 <div className="space-y-4">
                   <div>
                     <h3 style={{ color: theme.colors.text.muted, fontSize: '0.875rem' }}>Professor</h3>
-                    <p className="text-lg font-medium" style={{ color: theme.colors.text.primary }}>
+                    <p className="text-base sm:text-lg font-medium break-words" style={{ color: theme.colors.text.primary }}>
                       {meeting.professor}
                     </p>
                   </div>
@@ -458,7 +477,7 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
                   <div className="pt-2">
                     <div className="flex items-center space-x-2">
                       <Users size={16} style={{ color: theme.colors.text.accent }} />
-                      <span style={{ color: theme.colors.text.secondary }}>
+                      <span className="text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
                         {meeting.authorizedEmails.length} alunos autorizados
                       </span>
                     </div>
@@ -469,18 +488,18 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
             
             {/* Verificação de email (se ainda não verificado) */}
             {!isVerified && !classEnded && (
-              <div className="rounded-xl p-6 mb-6" style={{ backgroundColor: theme.colors.background.light }}>
+              <div className="rounded-xl p-4 sm:p-6 mb-4 sm:mb-6" style={{ backgroundColor: theme.colors.background.light }}>
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-8 h-8 flex items-center justify-center rounded-full" 
                        style={{ backgroundColor: `${theme.colors.state.warning}30` }}>
                     <Shield size={18} style={{ color: theme.colors.state.warning }} />
                   </div>
-                  <h2 className="text-xl font-semibold" style={{ color: theme.colors.text.primary }}>
+                  <h2 className="text-lg sm:text-xl font-semibold" style={{ color: theme.colors.text.primary }}>
                     Verificação de Acesso
                   </h2>
                 </div>
                 
-                <p className="mb-4" style={{ color: theme.colors.text.secondary }}>
+                <p className="mb-4 text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
                   Para acessar esta aula, por favor informe seu email de cadastro.
                 </p>
                 
@@ -493,7 +512,7 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
                     <input
                       type="email"
                       required
-                      className="w-full py-3 pl-11 pr-4 rounded-lg border transition-all"
+                      className="w-full py-3 pl-11 pr-4 rounded-lg border transition-all text-sm sm:text-base"
                       placeholder="Seu email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -506,7 +525,7 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
                   </div>
                   
                   {error && (
-                    <div className="p-3 rounded-lg text-sm" 
+                    <div className="p-3 rounded-lg text-xs sm:text-sm" 
                          style={{ backgroundColor: `${theme.colors.state.error}20`, color: theme.colors.state.error }}>
                       {error}
                     </div>
@@ -515,7 +534,7 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
                   <button
                     type="submit"
                     disabled={verificationLoading}
-                    className="w-full py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full py-2.5 sm:py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                     style={{ 
                       backgroundColor: theme.colors.primary.DEFAULT, 
                       color: theme.colors.text.primary,
@@ -542,12 +561,12 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
             
             {/* Botão de entrada - só exibido se a aula não tiver encerrado E o email estiver verificado */}
             {!classEnded && isVerified && (
-              <div className="rounded-xl p-6 mb-2 flex justify-center" style={{ backgroundColor: theme.colors.background.light }}>
+              <div className="rounded-xl p-4 sm:p-6 mb-2 flex justify-center" style={{ backgroundColor: theme.colors.background.light }}>
                 <a 
                   href={meeting.zoomLink} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="py-3.5 px-8 rounded-lg font-medium transition-all flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto py-3 sm:py-3.5 px-6 sm:px-8 rounded-lg font-medium transition-all flex items-center justify-center gap-2"
                   style={{ 
                     backgroundColor: classStarted ? theme.colors.state.success : theme.colors.state.info, 
                     color: theme.colors.text.primary,
@@ -570,21 +589,21 @@ function ClassAccess({ accessCode, meeting }: ClassAccessProps) {
             
             {/* Mensagem para aula encerrada */}
             {classEnded && (
-              <div className="rounded-xl p-6 mb-2 flex flex-col items-center justify-center text-center" 
+              <div className="rounded-xl p-4 sm:p-6 mb-2 flex flex-col items-center justify-center text-center" 
                    style={{ backgroundColor: theme.colors.background.light }}>
-                <div className="mb-4 w-16 h-16 flex items-center justify-center rounded-full"
+                <div className="mb-4 w-14 sm:w-16 h-14 sm:h-16 flex items-center justify-center rounded-full"
                      style={{ backgroundColor: `${theme.colors.state.error}25` }}>
-                  <AlertTriangle size={32} style={{ color: theme.colors.state.error }} />
+                  <AlertTriangle size={28} style={{ color: theme.colors.state.error }} />
                 </div>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: theme.colors.state.error }}>
+                <h3 className="text-lg sm:text-xl font-semibold mb-2" style={{ color: theme.colors.state.error }}>
                   Esta aula já foi encerrada
                 </h3>
-                <p className="mb-6" style={{ color: theme.colors.text.secondary }}>
+                <p className="mb-6 text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
                   A aula foi concluída e não está mais disponível para acesso.
                 </p>
                 <a 
                   href="/" 
-                  className="py-3 px-6 rounded-lg font-medium transition-all flex items-center justify-center gap-2"
+                  className="py-2.5 sm:py-3 px-6 rounded-lg font-medium transition-all flex items-center justify-center gap-2"
                   style={{ 
                     backgroundColor: theme.colors.primary.DEFAULT, 
                     color: theme.colors.text.primary,

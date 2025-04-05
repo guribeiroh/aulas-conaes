@@ -1,0 +1,148 @@
+/* Estilos específicos para melhorar a experiência em dispositivos móveis */
+
+/* Meta viewport para garantir suporte correto a telas de diferentes tamanhos */
+@viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+
+/* Estilos base para dispositivos móveis */
+@media (max-width: 640px) {
+  /* Tornar os elementos clicáveis mais fáceis de tocar (min 44x44px) */
+  button, 
+  a, 
+  [role="button"], 
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Aumentar os espaçamentos entre elementos interativos */
+  .space-y-4 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  /* Melhorar legibilidade de texto em telas pequenas */
+  body {
+    font-size: 16px; /* Tamanho base de fonte para melhor legibilidade */
+    line-height: 1.5; /* Espaçamento entre linhas para facilitar leitura */
+  }
+  
+  /* Ajuste de inputs e campos de formulário */
+  input, 
+  select, 
+  textarea {
+    font-size: 16px !important; /* Prevenir o zoom automático do iOS em inputs */
+  }
+  
+  /* Melhorar contraste para elementos em fundos escuros */
+  [style*="background-color: rgba(17, 24, 39"] input,
+  [style*="background-color: rgba(17, 24, 39"] button {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.5);
+  }
+  
+  /* Otimizar o comportamento do teclado virtual */
+  input, 
+  textarea {
+    padding: 12px 10px; /* Mais espaço para a área de toque */
+  }
+  
+  /* Garantir que o conteúdo não transborde em telas muito pequenas */
+  img, 
+  video, 
+  canvas, 
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Melhorar visualização de tabelas em telas pequenas */
+  table {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+  }
+  
+  /* Prevenir problemas com elementos de texto longos */
+  h1, h2, h3, p, span, a {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Feedback tátil melhorado para dispositivos de toque */
+  button:active,
+  a:active,
+  [role="button"]:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+  
+  /* Melhoria para modais em telas pequenas */
+  [role="dialog"],
+  .modal {
+    max-height: 90vh;
+    max-width: 90vw;
+    margin: 5vh auto;
+  }
+}
+
+/* Ajustes específicos para dispositivos muito pequenos */
+@media (max-width: 375px) {
+  body {
+    font-size: 15px;
+  }
+  
+  h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  h2 {
+    font-size: 1.25rem !important;
+  }
+  
+  .p-4 {
+    padding: 0.75rem !important;
+  }
+  
+  .m-4 {
+    margin: 0.75rem !important;
+  }
+}
+
+/* Melhorias para orientação paisagem em dispositivos móveis */
+@media (max-height: 480px) and (orientation: landscape) {
+  /* Ajuste para conteúdo vertical em orientação paisagem */
+  .min-h-screen {
+    min-height: 480px;
+  }
+  
+  /* Redução de margens e paddings */
+  .p-6, .py-6, .px-6 {
+    padding: 1rem !important;
+  }
+  
+  .m-6, .my-6, .mx-6 {
+    margin: 1rem !important;
+  }
+}
+
+/* Suporte a gestos de deslize (swipe) */
+.swipe-area {
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  display: flex;
+}
+
+.swipe-item {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+/* Melhoria para interação de toque (evitar delay de 300ms) */
+a, button, [role="button"] {
+  touch-action: manipulation;
+} 

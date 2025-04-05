@@ -1,5 +1,7 @@
 /* Importar os estilos da barra de rolagem */
 @import './styles/scrollbar.css';
+/* Importar os estilos específicos para mobile */
+@import './styles/mobile.css';
 
 @tailwind base;
 @tailwind components;
